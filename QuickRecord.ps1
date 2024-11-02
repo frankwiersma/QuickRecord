@@ -1,5 +1,6 @@
 # Parameters
 param (
+    [string]$Language = "en",  # Default language set to English
     [switch]$ToClipboard = $false,
     [switch]$ListDevices = $false,
     [int]$MicId = 0
@@ -65,21 +66,13 @@ catch {
     exit 1
 }
 
-$DeepgramURL = "https://api.deepgram.com/v1/listen?model=nova-2&smart_format=true"
+# Deepgram API URL with language parameter
+$DeepgramURL = "https://api.deepgram.com/v1/listen?model=nova-2&smart_format=true&language=$Language"
 
 # Create Transcripts directory if it doesn't exist
 if (-not (Test-Path $TranscriptFolder)) {
     New-Item -ItemType Directory -Path $TranscriptFolder -Force | Out-Null
     Write-Host "Created transcripts directory at: $TranscriptFolder"
-}
-
-
-# Function to get available audio devices
-function Get-AudioDevices {
-    $deviceList = & $ffmpegPath -list_devices true -f dshow -i dummy 2>&1 | 
-                 Select-String ".*\(audio\)" | 
-                 ForEach-Object { $_.Line.Trim() }
-    return $deviceList
 }
 
 # Function to record audio
