@@ -20,4 +20,7 @@ QuickRecord automates audio recording and transcription in a single script. With
 
 ---
 
-QuickRecord offers a quick, no-frills solution for fast audio capture and transcription.
+## 🚀 Quick Start
+1. Press `Windows Key + R` to open Run dialog
+2. Type: `powershell C:\path\QuickRecord.ps1 -ToClipboard -MicID 1`
+3. Press Enter and start speaking!
